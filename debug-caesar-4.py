@@ -1,7 +1,4 @@
 # Module Lab: Caesar Cipher Program Bug #4
-#
-# In a previous lab, you created a Caesar cipher program. This version of
-# the program is buggy. Use a debugger to find the bug and fix it.
 
 # Double the given alphabet
 def getDoubleAlphabet(alphabet):
@@ -15,26 +12,25 @@ def getMessage():
 
 # Get a cipher key
 def getCipherKey():
-    shiftAmount = input("Please enter a key (whole number from 1-25): ")
+    shiftAmount = int(input("Please enter a key (whole number from 1-25): "))  # Convert input to int
     return shiftAmount
 
 # Encrypt message
 def encryptMessage(message, cipherKey, alphabet):
     encryptedMessage = ""
-    uppercaseMessage = ""
     uppercaseMessage = message.upper()
     for currentCharacter in uppercaseMessage:
         position = alphabet.find(currentCharacter)
-        newPosition = position + int(cipherKey)
-        if currentCharacter in alphabet:
-            encryptedMessage = encryptedMessage + alphabet[newPosition]
+        newPosition = position + cipherKey
+        if position == -1:  # If character is not in alphabet, keep it unchanged
+            encryptedMessage += currentCharacter
         else:
-            encryptedMessage = encryptedMessage + currentCharacter
+            encryptedMessage += alphabet[newPosition]
     return encryptedMessage
 
 # Decrypt message
 def decryptMessage(message, cipherKey, alphabet):
-    decryptKey = -1 * int(cipherKey)
+    decryptKey = -1 * cipherKey  # Correctly apply decryption shift
     return encryptMessage(message, decryptKey, alphabet)
 
 # Main program logic
@@ -50,7 +46,7 @@ def runCaesarCipherProgram():
     myEncryptedMessage = encryptMessage(myMessage, myCipherKey, myAlphabet2)
     print(f'Encrypted Message: {myEncryptedMessage}')
     myDecryptedMessage = decryptMessage(myEncryptedMessage, myCipherKey, myAlphabet2)
-    print(f'Decrypted Message: {myEncryptedMessage}')
+    print(f'Decrypted Message: {myDecryptedMessage}')  # Fix incorrect print statement
 
-# Main logic
+# Run program
 runCaesarCipherProgram()
