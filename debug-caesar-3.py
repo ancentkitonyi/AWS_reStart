@@ -15,7 +15,9 @@ def getMessage():
 
 # Get a cipher key
 def getCipherKey():
-    shiftAmount = input("Please enter a key (whole number from 1-25): ")
+    #the input() function returns a string, but encryptMessage() expects an integer.
+    #shiftAmount = input("Please enter a key (whole number from 1-25): ")
+    shiftAmount = int(input("Please enter a key (whole number from 1-25): "))  # Convert to int
     return shiftAmount
 
 # Encrypt message
@@ -26,16 +28,18 @@ def encryptMessage(message, cipherKey, alphabet):
     for currentCharacter in uppercaseMessage:
         position = alphabet.find(currentCharacter)
         newPosition = position + int(cipherKey)
-        if currentCharacter in alphabet:
-            encryptedMessage = encryptedMessage + alphabet[newPosition]
+        if position == -1:  # Character not found in alphabet
+            encryptedMessage += currentCharacter
         else:
-            encryptedMessage = encryptedMessage + currentCharacter
+            encryptedMessage += alphabet[newPosition]
     return encryptedMessage
 
 # Decrypt message
 def decryptMessage(message, cipherKey, alphabet):
     decryptKey = -1 * int(cipherKey)
-    return encryptMessage(message, cipherKey, alphabet)
+    #decryptMessage() function, it calls encryptMessage(message, cipherKey, alphabet), but it should pass decryptKey
+    #return encryptMessage(message, cipherKey, alphabet)
+    return encryptMessage(message, decryptKey, alphabet)
 
 # Main program logic
 def runCaesarCipherProgram():
